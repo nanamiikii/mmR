@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_data.R
 \name{load_data}
 \alias{load_data}
-\title{Split a string}
+\title{Load in TidyTuesday Data}
 \usage{
 load_data(
   link =
@@ -10,18 +10,18 @@ load_data(
 )
 }
 \arguments{
-\item{string}{A character vector with, at most, one element containing the link to the csv.}
+\item{link}{A character vector with one element containing the link to the csv.}
 }
 \value{
 The loaded dataset in the form of a dataframe.
 }
 \description{
-Split a string
+Load in TidyTuesday Data
 }
 \examples{
 load_data()
 
-y <- 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-06-24/cases_year.csv'
-str_split_one(y)
+y <- 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-06-24/cases_month.csv'
+load_data(y)
 
 }
