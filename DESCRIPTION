@@ -1,0 +1,19 @@
+Package: mmR
+Title: mmR: Measels and Models using R.
+Version: 0.0.0.9000
+Authors@R: 
+    person("Libby", "Brill", , "librill@calpoly.edu", role = c("aut", "cre"))
+    person("Emi", "Degembe", , "edegembe@calpoly.edu", role = c("aut", "cre"))
+    person("Alvaro", "Ramos", , "first.last@example.com", role = c("aut", "cre"))
+Description: This package provides modularized functions for our Measles investigation project.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    readr

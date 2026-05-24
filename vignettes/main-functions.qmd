@@ -1,0 +1,46 @@
+---
+title: "main-functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{main-functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mmR)
+```
+
+# Function Drafts
+
+## Function 1: Regional Summary Statistics
+
+```{r}
+#| eval: false 
+summ_stats_by_region(region = "AMRO", summ_param = "GDP_per_capita", n = 5)
+```
+
+> Provides a gtable of summary statistics for top top n countries for a given region for the given parameter. Defaults expect top 5 countries for the AMRO region providing a summary of each country's GDP. This is similar to dashboard table on Mongolia panel. 
+
+## Function 2: Animated time series
+```{r}
+#| eval: false 
+time_lapse(parameter = "Measles", start_year = "2012", end_year = "2024", filter = NULL)
+```
+
+> Provides an animated time series of a select parameter with an optional filter vector and established start/end times. Defaults are set to show the change in measles cases per 1,000,000 from 2012 to 2024, This is similar to dashboard time series under Mongolia panel. 
+
+## Function 3: Leaflet edits
+```{r}
+#| eval: false 
+plot_leaflet(parameter = "MCV2", low = "#FFFFFF", high = "#E85D4E", normalize = FALSE)
+```
+
+> Provides a function that would modularize the leaflet inputs and allow for more customization, as well as a min-max normalization parameter for any values that may not be on a 0 to 1 scale. Default values are set to show a map of MCV2 coverage with low values being represented in white and high values being represented in red-orange with no normalization. This is similar to main page leaflet plot with interactivity. 
