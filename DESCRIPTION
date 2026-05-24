@@ -6,8 +6,7 @@ Authors@R:
     person("Emi", "Degembe", , "edegembe@calpoly.edu", role = c("aut", "cre"))
     person("Alvaro", "Ramos", , "first.last@example.com", role = c("aut", "cre"))
 Description: This package provides modularized functions for our Measles investigation project.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Suggests: 

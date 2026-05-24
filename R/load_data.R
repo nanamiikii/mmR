@@ -1,10 +1,13 @@
 #' Load in TidyTuesday Data
 #'
-#' @param string A character vector with one element containing the link to the csv.
+#' @param link A character vector with one element containing the link to the csv.
+
 #' @inheritParams readr::read_csv
 #'
 #' @return The loaded dataset in the form of a dataframe.
-#'
+#' 
+#' @importFrom readr read_csv
+#' 
 #' @examples
 #' load_data()
 #'
