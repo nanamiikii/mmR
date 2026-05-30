@@ -2,26 +2,17 @@
 % Please edit documentation in R/load_data.R
 \name{load_data}
 \alias{load_data}
-\title{Load in TidyTuesday Data}
+\title{Load in Metadata}
 \usage{
-load_data(
-  link =
-    "https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-06-24/cases_year.csv"
-)
-}
-\arguments{
-\item{link}{A character vector with one element containing the link to the csv.}
+load_data()
 }
 \value{
-The loaded dataset in the form of a dataframe.
+The loaded metadata in the form of a dataframe.
 }
 \description{
-Load in TidyTuesday Data
+Load in Metadata
 }
 \examples{
 load_data()
-
-y <- 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-06-24/cases_month.csv'
-load_data(y)
 
 }
