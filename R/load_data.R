@@ -9,4 +9,7 @@
 #'
 #' @export
 
-load_data <- function(){load(here::here("inst", "metadata.RData"))}
+load_data <- function() {
+  load(here::here("inst", "metadata.RData"))
+  metadata
+}
