@@ -4,12 +4,13 @@
 #'
 #' @importFrom here here
 #'
+#' @export
+#'
 #' @examples
 #' load_data()
-#'
-#' @export
 
 load_data <- function() {
-  load(here::here("inst", "metadata.RData"))
+  #load(here("inst", "metadata.RData"))
+  load(system.file("metadata.RData", package = "mmR"))
   metadata
 }

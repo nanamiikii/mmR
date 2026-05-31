@@ -75,7 +75,7 @@ summarize_stats <- function(df, col = measles_lab_confirmed, mode = region) {
 #' Makes a gt table for top n countries for a region for the specified parameter.
 #' This is similar to dashboard table on Mongolia panel.
 #'
-#' @param region Region of interest
+#' @param r Region of interest
 #' @param summ_param Some parameter of interest
 #' @param number Number of countries to include
 #'
@@ -167,7 +167,7 @@ validate_region <- function(region_name) {
 #'
 #' Helper function to validate variables
 #'
-#' @param region_name Variable to checked
+#' @param var_name Variable to checked
 
 validate_var <- function(var_name) {
 

@@ -2,18 +2,30 @@ Package: mmR
 Title: mmR: Measels and Models using R
 Version: 0.0.0.9000
 Authors@R: 
-    person("Libby", "Brill", , "librill@calpoly.edu", role = c("aut", "cre"))
-    person("Emi", "Degembe", , "edegembe@calpoly.edu", role = c("aut", "cre"))
     person("Alvaro", "Ramos", , "aramos89@calpoly.edu", role = c("aut", "cre"))
-Description: This package provides modularized functions for our Measles investigation project.
+Description: This package provides modularized functions for our Measles
+    investigation project.
 License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
+Imports: 
+    dplyr,
+    gganimate,
+    ggplot2,
+    gifski,
+    glue,
+    gt,
+    here,
+    htmlwidgets,
+    leaflet,
+    rlang,
+    rnaturalearth,
+    scales,
+    stringr
 Suggests: 
     knitr,
+    quarto,
     rmarkdown
-VignetteBuilder: knitr
-Imports: 
-    here,
-    readr
+VignetteBuilder: 
+    knitr
 Config/roxygen2/version: 8.0.0
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)

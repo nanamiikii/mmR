@@ -5,7 +5,7 @@
 \title{Generates a time series plot of a given parameter over a specified time range, with optional filtering.}
 \usage{
 time_lapse_plot(
-  parameter = "Measles",
+  parameter = "measles_total",
   start_year = "2012",
   end_year = "2024",
   title_ = glue("{parameter} from {start_year} to {end_year}"),
@@ -21,15 +21,37 @@ time_lapse_plot(
 
 \item{end_year}{A character string specifying the ending year for the time series (Default: "2024")}
 
+\item{title_}{A character string specifying the title of the plot (Default: NULL)}
+
 \item{filepath}{A character string specifying the file path where the generated *.gif file will be saved (Default: "time_lapse.gif")}
 
 \item{filter_vector}{An optional vector of character strings to filter the data by specific categories or groups (Default: NULL)}
 
-\item{title}{A character string specifying the title of the plot (Default: NULL)}
+\item{palette}{A vector denoting the colors of the plotted parameter}
 }
 \value{
 A *.gif file showing the animated time series of the specified parameter over the given time range.
 }
 \description{
 Generates a time series plot of a given parameter over a specified time range, with optional filtering.
+}
+\examples{
+# Animate MCV2 vaccination coverage over time (all countries, default years)
+time_lapse_plot(parameter = "mcv2")
+
+# Narrow to a single country and custom year range
+time_lapse_plot(
+  parameter     = "mcv2",
+  start_year    = "2015",
+  end_year      = "2022",
+  filter_vector = c(country = "Mongolia"),
+  title_        = "MCV2 Coverage in Mongolia (2015-2022)"
+)
+
+# Animate Measles incidence rate for the Western Pacific region
+time_lapse_plot(
+  parameter     = "measles_incidence_rate_per_1000000_total_population",
+  filter_vector = c(region_s = "WPRO")
+)
+
 }

@@ -7,11 +7,11 @@
 summ_stats_by_region(r, summ_param, number = 5)
 }
 \arguments{
+\item{r}{Region of interest}
+
 \item{summ_param}{Some parameter of interest}
 
 \item{number}{Number of countries to include}
-
-\item{region}{Region of interest}
 }
 \value{
 A gt table

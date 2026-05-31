@@ -78,8 +78,7 @@ plot_leaflet <- function(var, low, high, format, normalize = FALSE) {
 #' @param var_name The name of the variable to checked
 #'
 #' @examples
-#' validate_var("mcv2")
-#' validate_var("sleep_rate")
+#' mmR:::validate_var("mcv2")
 validate_var <- function(var_name) {
   var_options <- c("mcv2",
                    "GDP_per_capita",

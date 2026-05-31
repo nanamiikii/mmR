@@ -14,5 +14,4 @@ Load in Metadata
 }
 \examples{
 load_data()
-
 }

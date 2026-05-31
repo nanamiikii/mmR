@@ -9,14 +9,11 @@ validate_var(var_name)
 validate_var(var_name)
 }
 \arguments{
-\item{var_name}{The name of the variable to checked}
-
-\item{region_name}{Variable to checked}
+\item{var_name}{Variable to checked}
 }
 \description{
 Helper function to validate variables
 }
 \examples{
-validate_var("mcv2")
-validate_var("sleep_rate")
+mmR:::validate_var("mcv2")
 }
