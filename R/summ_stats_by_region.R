@@ -41,7 +41,7 @@ summ_stats <- function(x) {
 #'
 #' @returns A tibble
 #'
-#' @importFrom dplyr
+#' @import dplyr
 
 summarize_stats <- function(df, col = measles_lab_confirmed, mode = region) {
   ######### PARAMETERS ##########
@@ -81,8 +81,8 @@ summarize_stats <- function(df, col = measles_lab_confirmed, mode = region) {
 #'
 #' @returns A gt table
 #'
-#' @importFrom dplyr
-#' @importFrom gt
+#' @import dplyr
+#' @import gt
 #'
 #' @export
 
