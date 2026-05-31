@@ -61,5 +61,6 @@ test_that("summary statistics for a specified region (summ_stats_by_region)", {
   expect_equal(tab$`_data`$n[1], 0)
 
   expect_error(mmR::summ_stats_by_region(r = "z", summ_param = "mcv2"))
+  expect_error(mmR::summ_stats_by_region(r = "Americas", summ_param = "z"))
 
 })

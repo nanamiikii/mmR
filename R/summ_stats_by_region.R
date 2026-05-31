@@ -88,6 +88,9 @@ summarize_stats <- function(df, col = measles_lab_confirmed, mode = region) {
 
 summ_stats_by_region <- function(r, summ_param, number = 5){
 
+  r <- validate_region(r)
+  summ_param <- validate_var(summ_param)
+
   dat <- load_data() |>
     dplyr::filter(!(is.na(region)),
                   !(is.na(country))
@@ -155,7 +158,22 @@ validate_region <- function(region_name) {
                       "Western Pacific"
                       )
 
-  if (!var_name %in% var_options) {
+  if (!region_name %in% region_options) {
     stop("Please choose one of the regions (Africa, Americas, Eastern Mediterranean Europe, South East Asia, Western Pacific)")
+  }
+}
+
+#' Variable Name checker
+#'
+#' Helper function to validate variables
+#'
+#' @param region_name Variable to checked
+
+validate_var <- function(var_name) {
+
+  var_options <- load_data() |> names()
+
+  if (!var_name %in% var_options) {
+    stop("Please select one of the available variables of the metadata")
   }
 }
