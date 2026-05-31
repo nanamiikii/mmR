@@ -1,9 +1,9 @@
 test_that("var validation works", {
-  expect_silent(mmR:::validate_var("mcv2"))
-  expect_silent(mmR:::validate_var("GDP_per_capita"))
-  expect_silent(mmR:::validate_var("measles_incidence_rate_per_1000000_total_population"))
+  expect_silent(validate_var("mcv2"))
+  expect_silent(validate_var("GDP_per_capita"))
+  expect_silent(validate_var("measles_incidence_rate_per_1000000_total_population"))
 
-  expect_error(mmR:::validate_var("sleep_rate"))
+  expect_error(validate_var("sleep_rate"))
 })
 
 test_that("leaflet plot works", {
