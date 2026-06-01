@@ -2,7 +2,7 @@
 #'
 #' @return The loaded metadata in the form of a dataframe.
 #'
-#' @importFrom here here
+#' @importFrom arrow read_parquet
 #'
 #' @export
 #'
@@ -11,6 +11,7 @@
 
 load_data <- function() {
   #load(here("inst", "metadata.RData"))
-  load(system.file("metadata.RData", package = "mmR"))
-  metadata
+  #load(system.file("metadata.RData", package = "mmR"))
+  arrow::read_parquet(system.file("metadata.parquet", package = "mmR"))
+  #metadata
 }
