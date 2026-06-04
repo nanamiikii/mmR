@@ -5,8 +5,12 @@
 #' @param x Variable of the form of a vector
 #'
 #' @returns A tibble of columns for the variable, where each column is a different measure
+#'
+#' @examples
+#' # summary statistics for the region variable
+#' summ_stats(load_data()$region)
 
-summ_stats <- function(x) {
+generate_summary_stats <- function(x) {
 
   # if x contains numeric values
   # return a tibble with the mean, med, sd, IQR, and n observed
@@ -39,32 +43,28 @@ summ_stats <- function(x) {
 #' @param col Some column of interest to summarize by
 #' @param mode Mode to aggregate by
 #'
-#' @returns A tibble
+#' @returns A tibble of summary statistics
 #'
 #' @import dplyr
+#'
+#' @export
+#'
+#' @examples
+#' # Generate sample statistics for number of measles by region
+#' summarize_stats(load_data(), measles_total, region)
 
-summarize_stats <- function(df, col = measles_lab_confirmed, mode = region) {
-  ######### PARAMETERS ##########
-  # input: df -- the dataframe of interest
-  # col: column of interest to summarize by:
-  #   measles_suspect,
-  #   measles_clinical,
-  #   measles_epi_linked,
-  #   measles_lab_confirmed [DEFAULT],
-  #   measles_total
-  # mode: aggregate by options:
-  #   region [DEFAULT],
-  #   country,
-  #   iso3,
-  #   year
-  ###############################
+summarize_stats_by <- function(df, col = measles_lab_confirmed, mode = region) {
+
+  #if (!(mode %in% c("region", "country", "iso3", "year"))){
+   # stop("Please select one of the available modes (region, country, iso3, year)")
+  #}
 
   df |>
     dplyr::select({{mode}}, {{col}}) |>
     dplyr::group_by({{mode}}) |>
     #group_map removed the group column, so to retain that, group_modify.
     # See second example: https://dplyr.tidyverse.org/reference/group_map.html
-    dplyr::group_modify( ~ summ_stats(.x |>
+    dplyr::group_modify( ~ generate_summary_stats(.x |>
                                         dplyr::pull({{col}}))) |>
     dplyr::bind_rows()
 }
@@ -79,17 +79,17 @@ summarize_stats <- function(df, col = measles_lab_confirmed, mode = region) {
 #' @param summ_param Some parameter of interest
 #' @param number Number of countries to include
 #'
-#' @returns A gt table
+#' @returns A gt table of formatted summary statistics for a specified variable for a region
 #'
 #' @import dplyr
 #' @import gt
 #'
 #' @export
 
-summ_stats_by_region <- function(r, summ_param, number = 5){
+summarize_stats_by_region <- function(r, summ_param, number = 5){
 
-  r <- validate_region(r)
-  summ_param <- validate_var(summ_param)
+  validate_region(r)
+  validate_var(summ_param)
 
   dat <- load_data() |>
     dplyr::filter(!(is.na(region)),
@@ -97,7 +97,7 @@ summ_stats_by_region <- function(r, summ_param, number = 5){
                   ) |>
     dplyr::filter(region == r)
 
-  summarize_stats(dat,
+  summarize_stats_by(dat,
                   {{summ_param}},
                   mode = country
                   ) |>
@@ -161,6 +161,7 @@ validate_region <- function(region_name) {
   if (!region_name %in% region_options) {
     stop("Please choose one of the regions (Africa, Americas, Eastern Mediterranean Europe, South East Asia, Western Pacific)")
   }
+
 }
 
 #' Variable Name checker
