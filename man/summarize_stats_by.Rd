@@ -4,7 +4,7 @@
 \alias{summarize_stats_by}
 \title{Summary statistics for a specified variable aggregated by a mode (e.g. region or country)}
 \usage{
-summarize_stats_by(df, col = measles_lab_confirmed, mode = region)
+summarize_stats_by(df, col = measles_total, mode = region)
 }
 \arguments{
 \item{df}{Data frame}

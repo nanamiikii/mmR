@@ -6,7 +6,7 @@
 \usage{
 summarize_stats_by_region(
   r = "Africa",
-  summ_param = "measles_total",
+  summ_param = "GDP_per_capita",
   number = 5
 )
 }
@@ -25,6 +25,6 @@ Makes a gt table for top n countries for a region for the specified parameter.
 This is similar to dashboard table on Mongolia panel.
 }
 \examples{
-# Generate a summary table for the top 5 African countries based on number of measles
-summarize_stats_by_region(r = "Africa", summ_param = "measles_total")
+# Generate a summary table for the top 5 African countries based on country's GDP
+summarize_stats_by_region(r = "Africa", summ_param = "GDP_per_capita")
 }

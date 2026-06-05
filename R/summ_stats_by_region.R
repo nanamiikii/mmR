@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' # summary statistics for the region variable
-#' generate_summary_stats(load_data()$region)
+#' mmR:::generate_summary_stats(load_data()$region)
 
 generate_summary_stats <- function(x) {
 
@@ -53,7 +53,7 @@ generate_summary_stats <- function(x) {
 #' # Generate sample statistics for number of measles by region
 #' summarize_stats_by(load_data(), measles_total, region)
 
-summarize_stats_by <- function(df, col = measles_lab_confirmed, mode = region) {
+summarize_stats_by <- function(df, col = measles_total, mode = region) {
 
   #if (!(mode %in% c("region", "country", "iso3", "year"))){
    # stop("Please select one of the available modes (region, country, iso3, year)")
@@ -87,10 +87,10 @@ summarize_stats_by <- function(df, col = measles_lab_confirmed, mode = region) {
 #' @export
 #'
 #' @examples
-#' # Generate a summary table for the top 5 African countries based on number of measles
-#' summarize_stats_by_region(r = "Africa", summ_param = "measles_total")
+#' # Generate a summary table for the top 5 African countries based on country's GDP
+#' summarize_stats_by_region(r = "Africa", summ_param = "GDP_per_capita")
 
-summarize_stats_by_region <- function(r = "Africa", summ_param = "measles_total", number = 5){
+summarize_stats_by_region <- function(r = "Africa", summ_param = "GDP_per_capita", number = 5){
 
   validate_region(r)
   validate_variable(summ_param)

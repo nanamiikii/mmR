@@ -18,29 +18,98 @@ knitr::opts_chunk$set(
 library(mmR)
 ```
 
-# Function Drafts
+# Functions
 
-## Function 1: Regional Summary Statistics
+## Metadata loading function
 
 ```{r}
-#| eval: false 
-summ_stats_by_region(region = "AMRO", summ_param = "GDP_per_capita", n = 5)
+#| eval: false
+load_data()
 ```
 
-> Provides a gtable of summary statistics for top top n countries for a given region for the given parameter. Defaults expect top 5 countries for the AMRO region providing a summary of each country's GDP. This is similar to dashboard table on Mongolia panel. 
+## Data summary functions
 
-## Function 2: Animated time series
+### Summary Statistics by Mode
+
+```{r}
+#| eval: false
+summarize_stats_by(
+  df,
+  col = measles_total,
+  mode = region
+  )
+```
+
+> Helper function used to calculate summary statistics for a specified variable aggregated by a specified mode. Defaults are set to generate tibble of summary statistics for the number of measles by region using the metadata.
+
+## Regional Summary Statistics
+
+```{r}
+#| eval: false
+summarize_stats_by_region(
+  region = "Africa",
+  summ_param = "GDP_per_capita",
+  n = 5
+  )
+```
+
+> Makes a gtable of summary statistics for the top n countries of a specified region for the specified parameter. Defaults expect a summary of each country's GDP for the top 5 countries for Africa. This is similar to dashboard table on Mongolia panel.
+
+## Visualization functions
+
+### Animated time series
+
 ```{r}
 #| eval: false 
-time_lapse(parameter = "Measles", start_year = "2012", end_year = "2024", filter = NULL)
+time_lapse_plot(
+  parameter = "measles_total",
+  start_year = "2012",
+  end_year = "2024",
+  title_ = glue("{parameter} from {start_year} to {end_year}"),
+  filepath = NULL,
+  filter_vector = NULL,
+  palette = c("#001E4D", "#F4A324")
+  )
 ```
 
 > Provides an animated time series of a select parameter with an optional filter vector and established start/end times. Defaults are set to show the change in measles cases per 1,000,000 from 2012 to 2024, This is similar to dashboard time series under Mongolia panel. 
 
-## Function 3: Leaflet edits
+### Leaflet visual
+
 ```{r}
 #| eval: false 
 plot_leaflet(parameter = "MCV2", low = "#FFFFFF", high = "#E85D4E", normalize = FALSE)
 ```
 
-> Provides a function that would modularize the leaflet inputs and allow for more customization, as well as a min-max normalization parameter for any values that may not be on a 0 to 1 scale. Default values are set to show a map of MCV2 coverage with low values being represented in white and high values being represented in red-orange with no normalization. This is similar to main page leaflet plot with interactivity. 
+> Generates a leaflet visual showing a world map of values of a specified variable. Similar to the main page leaflet plot used for the dashboard, the function is meant to modularize the leaflet inputs and allow for more customization, as well as a min-max normalization parameter for any values that may not be on a 0 to 1 scale. Default values are set to show a map of MCV2 coverage with low values being represented in white and high values being represented in red-orange with no normalization.
+
+## Statistical analysis functions
+
+### Model fitting function
+
+```{r}
+#| eval: false
+model_form(variables = c("GDP_per_capita", "mcv2", "region"))
+```
+
+> Makes a gls model using specified explanatory variables for modeling the number of measles cases per million population. Since the model uses yearly data, the model utilizes an autocorrelation structure for the errors using year as the covariate. Defining GDP per capita as an explanatory variable makes the function use a log transformation version for validity reasons.
+
+### Model table of estimated coefficients
+
+```{r}
+#| eval: false
+model_tab(variables = c("GDP_per_capita", "mcv2", "region"))
+```
+
+> Generates a `gt` table that formats coefficients for a model created using the function `model_form`. See documentation for `model_form` for detailed information about the model formed.
+
+
+
+
+
+
+
+
+
+
+

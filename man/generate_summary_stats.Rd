@@ -17,5 +17,5 @@ Helper function that calculates summary statistics based on the type of variable
 }
 \examples{
 # summary statistics for the region variable
-generate_summary_stats(load_data()$region)
+mmR:::generate_summary_stats(load_data()$region)
 }
