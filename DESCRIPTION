@@ -7,15 +7,18 @@ Description: This package provides modularized functions for our Measles
     investigation project.
 License: MIT + file LICENSE
 Imports: 
+    arrow,
+    car,
     dplyr,
     gganimate,
     ggplot2,
     gifski,
     glue,
+    grDevices,
     gt,
-    here,
     htmlwidgets,
     leaflet,
+    nlme,
     rlang,
     rnaturalearth,
     scales,
@@ -23,7 +26,8 @@ Imports:
 Suggests: 
     knitr,
     quarto,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: 
     knitr
 Config/roxygen2/version: 8.0.0

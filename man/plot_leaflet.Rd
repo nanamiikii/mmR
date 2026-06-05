@@ -4,7 +4,7 @@
 \alias{plot_leaflet}
 \title{Leaflet Plot}
 \usage{
-plot_leaflet(var, low, high, format, normalize = FALSE)
+plot_leaflet(var, low, high, format = TRUE)
 }
 \arguments{
 \item{var}{The variable to be plotted (mcv2, GDP_per_capita,
@@ -14,11 +14,8 @@ measles_incidence_rate_per_1000000_total_population)}
 
 \item{high}{The color for the high end of the scale, as a string}
 
-\item{format}{How the parameter should be formatted ("percent", "dollar",
-"comma")}
-
-\item{normalize}{Whether or not the variable should be normalized, should be
-TRUE for variables not on a 0-1 scale. Default is FALSE}
+\item{format}{Whether or not to format the variable (i.e. percents, dollar
+amounts, commas). Default is TRUE}
 }
 \value{
 An interactive leaflet plot
@@ -27,10 +24,8 @@ An interactive leaflet plot
 Leaflet Plot
 }
 \examples{
-plot_leaflet(var = mcv2, low = "#ecf0f1", high = "#e74c3c",
-format = "percent")
-plot_leaflet(var = GDP_per_capita, low = "#ecf0f1", high = "#1ccdaa",
-format = "dollar", normalize = TRUE)
+plot_leaflet(var = mcv2, low = "#ecf0f1", high = "#e74c3c")
+plot_leaflet(var = GDP_per_capita, low = "#ecf0f1", high = "#1ccdaa")
 plot_leaflet(var = measles_incidence_rate_per_1000000_total_population,
-low = "#ecf0f1", high = "#f4a324", format = "comma", normalize = TRUE)
+low = "#ecf0f1", high = "#f4a324", format = FALSE)
 }
