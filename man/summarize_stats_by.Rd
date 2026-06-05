@@ -2,7 +2,7 @@
 % Please edit documentation in R/summ_stats_by_region.R
 \name{summarize_stats_by}
 \alias{summarize_stats_by}
-\title{Summary statistics for a specified variable aggregated by region or country}
+\title{Summary statistics for a specified variable aggregated by a mode (e.g. region or country)}
 \usage{
 summarize_stats_by(df, col = measles_lab_confirmed, mode = region)
 }
@@ -17,9 +17,9 @@ summarize_stats_by(df, col = measles_lab_confirmed, mode = region)
 A tibble of summary statistics
 }
 \description{
-Helper function used to calculate summary statistics for a specified variable
+Helper function used to calculate summary statistics for a specified variable aggregated by a specified mode
 }
 \examples{
 # Generate sample statistics for number of measles by region
-summarize_stats(load_data(), measles_total, region)
+summarize_stats_by(load_data(), measles_total, region)
 }

@@ -4,7 +4,11 @@
 \alias{summarize_stats_by_region}
 \title{Summary statistics table}
 \usage{
-summarize_stats_by_region(r, summ_param, number = 5)
+summarize_stats_by_region(
+  r = "Africa",
+  summ_param = "measles_total",
+  number = 5
+)
 }
 \arguments{
 \item{r}{Region of interest}
@@ -19,4 +23,8 @@ A gt table of formatted summary statistics for a specified variable for a region
 \description{
 Makes a gt table for top n countries for a region for the specified parameter.
 This is similar to dashboard table on Mongolia panel.
+}
+\examples{
+# Generate a summary table for the top 5 African countries based on number of measles
+summarize_stats_by_region(r = "Africa", summ_param = "measles_total")
 }

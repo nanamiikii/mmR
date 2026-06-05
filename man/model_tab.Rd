@@ -4,16 +4,17 @@
 \alias{model_tab}
 \title{Make a table}
 \usage{
-model_tab(variables)
+model_tab(variables = c("GDP_per_capita", "mcv2", "region"))
 }
 \arguments{
-\item{variables}{Vector of explanatory variables.}
+\item{variables}{Vector of explanatory variables to be used for modeling.}
 }
 \value{
 Generated \code{gt} table
 }
 \description{
 Generates a \code{gt} table that formats coefficients for a model created using the function \code{model_form}.
+See documentation for \code{model_form} for detailed information about the model.
 }
 \examples{
 # Generate a table for a model using `GDP_per_capita` and `mcv2` as explanatory variables

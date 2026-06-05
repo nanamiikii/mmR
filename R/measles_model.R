@@ -1,13 +1,15 @@
 #' Modeling function
 #'
-#' Makes a gls model using number of measles cases per million population as the dependent variable.
+#' Makes a gls model using specified explanatory variables for modeling the number of measles cases per million population.
 #' Since the model uses yearly data, the model utilizes an autocorrelation structure for the errors using year as the covariate.
+#' Defining GDP per capita as an explanatory variable makes the function use a log transformation version.
 #'
-#' @param variables Vector of explanatory variables.
+#' @param variables Vector of explanatory variables to be used for modeling.
 #'
 #' @returns Model of class `gls`.
 #'
 #' @importFrom nlme gls corAR1
+#' @importFrom dplyr mutate
 #'
 #' @export
 #'
@@ -15,22 +17,17 @@
 #' # Make a model using `GDP_per_capita` and `mcv2` as explanatory variables
 #' model_form(c("GDP_per_capita", "mcv2"))
 
-model_form <- function(variables){
+model_form <- function(variables = c("GDP_per_capita", "mcv2", "region")){
 
-  if ("measles_incidence_rate_per_1000000_total_population" %in% variables){
-    stop("Variable `measles_incidence_rate_per_1000000_total_population` is not able to be used for modeling.")
-  }
+
+  validate_v(variables)
 
   variables <- str_sort(variables)
 
   gls(
-
     reformulate(variables, "measles_incidence_rate_per_1000000_total_population"),
-
-    data = load_data() |> mutate("GDP_per_capita" = log(GDP_per_capita)),
-
+    data = load_data() |> dplyr::mutate("GDP_per_capita" = log(GDP_per_capita)),
     na.action = na.omit,
-
     correlation = corAR1(form = ~ year | region / country)
   )
 
@@ -41,7 +38,7 @@ model_form <- function(variables){
 #' Generates a `gt` table that formats coefficients for a model created using the function `model_form`.
 #' See documentation for `model_form` for detailed information about the model.
 #'
-#' @param variables Vector of explanatory variables.
+#' @param variables Vector of explanatory variables to be used for modeling.
 #'
 #' @returns Generated `gt` table
 #'
@@ -56,7 +53,7 @@ model_form <- function(variables){
 #' model_tab(c("GDP_per_capita", "mcv2"))
 #'
 
-model_tab <- function(variables){
+model_tab <- function(variables = c("GDP_per_capita", "mcv2", "region")){
 
   variables <- str_sort(variables)
 
@@ -82,7 +79,8 @@ model_tab <- function(variables){
   s |>
     mutate(var = var |>
              str_remove("region") |>
-             str_replace("log_GDP_per_capita", "log(GDP per capita ($))") |>
+             #str_replace("log_GDP_per_capita", "log(GDP per capita ($))") |>
+             str_replace("GDP_per_capita", "log(GDP per capita ($))") |>
              str_replace("mcv2", "MCV2")
     ) |>
     gt::gt() |>
@@ -108,4 +106,21 @@ model_tab <- function(variables){
       title = md("Estimated coefficients for modeled variables")
     )
 
+}
+
+#' Variable Name checker
+#'
+#' Helper function to validate variables for modeling
+#'
+#' @param variable_name Variable to checked
+
+validate_v <- function(variable_name) {
+
+  var_options <- c("GDP_per_capita", "mcv2", "region")
+
+  if ( !(all(variable_name %in% var_options))) {
+    stop(
+      "Please use `GDP_per_capita`, `mcv2`, or `region` as modeling variables."
+    )
+  }
 }

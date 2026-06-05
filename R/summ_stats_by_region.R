@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' # summary statistics for the region variable
-#' summ_stats(load_data()$region)
+#' generate_summary_stats(load_data()$region)
 
 generate_summary_stats <- function(x) {
 
@@ -35,9 +35,9 @@ generate_summary_stats <- function(x) {
   out_df
 }
 
-#' Summary statistics for a specified variable aggregated by region or country
+#' Summary statistics for a specified variable aggregated by a mode (e.g. region or country)
 #'
-#' Helper function used to calculate summary statistics for a specified variable
+#' Helper function used to calculate summary statistics for a specified variable aggregated by a specified mode
 #'
 #' @param df Data frame
 #' @param col Some column of interest to summarize by
@@ -51,7 +51,7 @@ generate_summary_stats <- function(x) {
 #'
 #' @examples
 #' # Generate sample statistics for number of measles by region
-#' summarize_stats(load_data(), measles_total, region)
+#' summarize_stats_by(load_data(), measles_total, region)
 
 summarize_stats_by <- function(df, col = measles_lab_confirmed, mode = region) {
 
@@ -85,11 +85,15 @@ summarize_stats_by <- function(df, col = measles_lab_confirmed, mode = region) {
 #' @import gt
 #'
 #' @export
+#'
+#' @examples
+#' # Generate a summary table for the top 5 African countries based on number of measles
+#' summarize_stats_by_region(r = "Africa", summ_param = "measles_total")
 
-summarize_stats_by_region <- function(r, summ_param, number = 5){
+summarize_stats_by_region <- function(r = "Africa", summ_param = "measles_total", number = 5){
 
   validate_region(r)
-  validate_var(summ_param)
+  validate_variable(summ_param)
 
   dat <- load_data() |>
     dplyr::filter(!(is.na(region)),
@@ -153,13 +157,14 @@ validate_region <- function(region_name) {
 
   region_options <- c("Africa",
                       "Americas",
-                      "Eastern Mediterranean Europe",
+                      "Eastern Mediterranean",
+                      "Europe",
                       "South East Asia",
                       "Western Pacific"
                       )
 
   if (!region_name %in% region_options) {
-    stop("Please choose one of the regions (Africa, Americas, Eastern Mediterranean Europe, South East Asia, Western Pacific)")
+    stop("Please choose one of the regions (Africa, Americas, Eastern Mediterranean, Europe, South East Asia, Western Pacific)")
   }
 
 }
@@ -168,13 +173,16 @@ validate_region <- function(region_name) {
 #'
 #' Helper function to validate variables
 #'
-#' @param var_name Variable to checked
+#' @param variable_name Variable to checked
 
-validate_var <- function(var_name) {
+validate_variable <- function(variable_name) {
 
   var_options <- load_data() |> names()
 
-  if (!var_name %in% var_options) {
-    stop("Please select one of the available variables of the metadata")
+  if (!variable_name %in% var_options) {
+    stop(
+      "Please select one of the available variables of the metadata.
+      Use load_data() |> names() to view the available variables."
+      )
   }
 }

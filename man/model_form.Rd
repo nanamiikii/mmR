@@ -4,17 +4,18 @@
 \alias{model_form}
 \title{Modeling function}
 \usage{
-model_form(variables)
+model_form(variables = c("GDP_per_capita", "mcv2", "region"))
 }
 \arguments{
-\item{variables}{Vector of explanatory variables.}
+\item{variables}{Vector of explanatory variables to be used for modeling.}
 }
 \value{
 Model of class \code{gls}.
 }
 \description{
-Makes a gls model using number of measles cases per million population as the dependent variable.
+Makes a gls model using specified explanatory variables for modeling the number of measles cases per million population.
 Since the model uses yearly data, the model utilizes an autocorrelation structure for the errors using year as the covariate.
+Defining GDP per capita as an explanatory variable makes the function use a log transformation version.
 }
 \examples{
 # Make a model using `GDP_per_capita` and `mcv2` as explanatory variables

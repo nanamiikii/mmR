@@ -78,7 +78,22 @@ test_that("summary statistics for a specified region (summarize_stats_by_region)
   expect_equal(tab$`_data`$iqr[1], 0)
   expect_equal(tab$`_data`$n[1], 3)
 
-  expect_error(mmR::summ_stats_by_region(r = "z", summ_param = "mcv2"))
-  expect_error(mmR::summ_stats_by_region(r = "Americas", summ_param = "z"))
+  expect_error(mmR::summarize_stats_by_region(r = "z", summ_param = "mcv2"))
+  expect_error(mmR::summarize_stats_by_region(r = "Americas", summ_param = "z"))
+
+  dat <- load_data()
+
+  tab <- mmR::summarize_stats_by_region()
+
+  expect_s3_class(tab, "gt_tbl")
+
+  expect_equal(names(tab$`_data`), c("country", "mean", "median", "stdev", "iqr", "n"))
+
+  expect_equal(tab$`_data`$country[1], "Madagascar")
+  expect_equal(tab$`_data`$mean[1], 16,139.07)
+  expect_equal(tab$`_data`$median[1], 72.50)
+  expect_equal(tab$`_data`$stdev[1], 56,834.29)
+  expect_equal(tab$`_data`$iqr[1], 78.25)
+  expect_equal(tab$`_data`$n[1], 14)
 
 })
