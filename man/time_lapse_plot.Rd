@@ -2,56 +2,64 @@
 % Please edit documentation in R/time-series.R
 \name{time_lapse_plot}
 \alias{time_lapse_plot}
-\title{Generates a time series plot of a given parameter over a specified time range, with optional filtering.}
+\title{Time series plot of one or more parameters over a specified time range, with optional filtering.}
 \usage{
 time_lapse_plot(
-  parameter = "measles_total",
-  start_year = "2012",
-  end_year = "2024",
-  title_ = glue("{parameter} from {start_year} to {end_year}"),
-  filepath = NULL,
+  parameters = "measles_total",
+  start_year = 2012,
+  end_year = 2024,
+  title_ = glue("{paste(parameters, collapse = ', ')} from {start_year} to {end_year}"),
   filter_vector = NULL,
+  use_mean = FALSE,
   palette = c("#001E4D", "#F4A324")
 )
 }
 \arguments{
-\item{parameter}{A character string specifying the parameter to be plotted (Default:, "Measles")}
+\item{parameters}{A character vector of column names to plot (Default: \code{"measles_total"}).
+All series are overlaid on the same graph.}
 
-\item{start_year}{A character string specifying the starting year for the time series (Default: "2012")}
+\item{start_year}{A numerical specifying the starting year for the time series (Default: 2012)}
 
-\item{end_year}{A character string specifying the ending year for the time series (Default: "2024")}
+\item{end_year}{A numerical specifying the ending year for the time series (Default: 2024)}
 
-\item{title_}{A character string specifying the title of the plot (Default: NULL)}
+\item{title_}{A character string specifying the title of the plot (Default: \code{glue("{paste(parameters, collapse = ', ')} from {start_year} to {end_year}")}}
 
-\item{filepath}{A character string specifying the file path where the generated *.gif file will be saved (Default: "time_lapse.gif")}
+\item{filter_vector}{An optional named character vector to filter the data by specific categories
+or groups (Default: \code{NULL}).}
 
-\item{filter_vector}{An optional vector of character strings to filter the data by specific categories or groups (Default: NULL)}
+\item{use_mean}{A logical; if \code{TRUE} the aggregation uses \code{mean}, otherwise
+\code{median} (Default: FALSE).}
 
-\item{palette}{A vector denoting the colors of the plotted parameter}
+\item{palette}{A character vector of colours, one per parameter in \code{parameters}.
+Recycled if shorter than the number of parameters (Default: \code{c("#001E4D", "#F4A324")}).}
 }
 \value{
-A *.gif file showing the animated time series of the specified parameter over the given time range.
+A ggplot / gganimate object showing the animated time series.
 }
 \description{
-Generates a time series plot of a given parameter over a specified time range, with optional filtering.
+Data are aggregated by year (median by default; set \code{use_mean = TRUE} for mean)
+after any \code{filter_vector} filtering is applied, so the plot always shows a single
+summary line per parameter.
 }
 \examples{
-# Animate MCV2 vaccination coverage over time (all countries, default years)
-time_lapse_plot(parameter = "mcv2")
+# Single parameter – median by year (default)
+time_lapse_plot(parameters = "mcv2")
 
-# Narrow to a single country and custom year range
+# Two parameters on the same graph
 time_lapse_plot(
-  parameter     = "mcv2",
-  start_year    = "2015",
-  end_year      = "2022",
+  parameters = c("mcv2", "measles_incidence_rate_per_1000000_total_population")
+)
+
+# Narrow to a single country by applying categorical filter
+time_lapse_plot(
+  parameters    = "mcv2",
+  start_year    = 2015,
+  end_year      = 2022,
   filter_vector = c(country = "Mongolia"),
   title_        = "MCV2 Coverage in Mongolia (2015-2022)"
 )
 
-# Animate Measles incidence rate for the Western Pacific region
-time_lapse_plot(
-  parameter     = "measles_incidence_rate_per_1000000_total_population",
-  filter_vector = c(region_s = "WPRO")
-)
+# Use mean instead of median for the yearly summary
+time_lapse_plot(parameters = "mcv2", use_mean = TRUE)
 
 }
