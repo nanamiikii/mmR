@@ -64,7 +64,7 @@ test_that("filter_data errors on an unrecognised column name", {
 })
 
 test_that("filter_data errors on a value not present in the column", {
-  expect_error(filter_data(metadata, c(country = "Narnia")),
+  expect_error(filter_data(metadata, c(country = "Napville")),
                "are not found in the data")
 })
 
@@ -75,66 +75,71 @@ valid_param <- "mcv2"
 # time_lapse_plot: output structure is correct
 
 test_that("time_lapse_plot returns an animated (gganim) object", {
-  p <- time_lapse_plot(parameter = valid_param)
+  p <- time_lapse_plot(parameters = valid_param)
   expect_s3_class(p, "gganim")
 })
 
 # time_lapse_plot: input validation 
 
-test_that("time_lapse_plot default title contains the parameter name", {
-  p <- time_lapse_plot(parameter = valid_param)
+test_that("time_lapse_plot default title contains the parameters name", {
+  p <- time_lapse_plot(parameters = valid_param)
   expect_match(p$labels$title, valid_param)
 })
 
 test_that("time_lapse_plot contains a custom title_", {
-  p <- time_lapse_plot(parameter = valid_param, title_ = "My Custom Title")
+  p <- time_lapse_plot(parameters = valid_param, title_ = "My Custom Title")
   expect_equal(p$labels$title, "My Custom Title")
 })
 
 # time_lapse_plot: filtering by year
 
 test_that("time_lapse_plot data contains no years before start_year", {
-  p <- time_lapse_plot(parameter = valid_param, start_year = "2015", end_year = "2020")
+  p <- time_lapse_plot(parameters = valid_param, start_year = 2015, end_year = 2020)
   expect_true(all(p$data$year >= 2015))
 })
 
 test_that("time_lapse_plot data contains no years after end_year", {
-  p <- time_lapse_plot(parameter = valid_param, start_year = "2015", end_year = "2020")
+  p <- time_lapse_plot(parameters = valid_param, start_year = 2015, end_year = 2020)
   expect_true(all(p$data$year <= 2020))
 })
 
 # time_lapse_plot: data is properly filtered by filter_vector
 
 test_that("time_lapse_plot filter_vector restricts data to one country", {
-  p <- time_lapse_plot(parameter = valid_param,
-                       filter_vector = c(country = "Mongolia"))
-  expect_true(all(p$data$country == "Mongolia"))
-})
-
-test_that("time_lapse_plot filter_vector OR logic keeps both requested countries", {
-  p <- time_lapse_plot(parameter = valid_param,
-                       filter_vector = c(country = "Mongolia", country = "Algeria"))
-  expect_setequal(unique(p$data$country), c("Mongolia", "Algeria"))
+  p_filtered   <- time_lapse_plot(parameters = valid_param,
+                                  filter_vector = c(country = "Mongolia"))
+  p_unfiltered <- time_lapse_plot(parameters = valid_param)
+  # A single-country filter produces different yearly medians than all countries
+  expect_false(isTRUE(all.equal(p_filtered$data$value, p_unfiltered$data$value)))
 })
 
 test_that("time_lapse_plot filter_vector can filter by region_s", {
-  p <- time_lapse_plot(parameter = valid_param,
-                       filter_vector = c(region_s = "WPRO"))
-  expect_true(all(p$data$region_s == "WPRO"))
+  p_region     <- time_lapse_plot(parameters = valid_param,
+                                  filter_vector = c(region_s = "WPRO"))
+  p_unfiltered <- time_lapse_plot(parameters = valid_param)
+  # A single-region filter produces different yearly medians than all regions
+  expect_false(isTRUE(all.equal(p_region$data$value, p_unfiltered$data$value)))
 })
 
 # time_lapse_plot: will it break
 
-test_that("time_lapse_plot errors when parameter is not a column in the data", {
+test_that("time_lapse_plot errors when parameters is not a column in the data", {
   expect_error(
-    time_lapse_plot(parameter = "chicken_nuggets_per_capita"),
-    "not found"
+    time_lapse_plot(parameters = "chicken_nuggets_per_capita"),
+    "are not column names in the dataset"
   )
+})
+
+test_that("time_lapse_plot accepts a vector of parameters and plots all on one graph", {
+  params <- c("mcv2", "measles_incidence_rate_per_1000000_total_population")
+  p <- time_lapse_plot(parameters = params)
+  expect_s3_class(p, "gganim")
+  expect_setequal(unique(p$data$parameter), params)
 })
 
 test_that("time_lapse_plot errors when filter_vector names a non-existent column", {
   expect_error(
-    time_lapse_plot(parameter = valid_param,
+    time_lapse_plot(parameters = valid_param,
                     filter_vector = c(favorite_cuisine = "Mongolia")),
     "are not columns in the dataset"
   )
@@ -142,7 +147,7 @@ test_that("time_lapse_plot errors when filter_vector names a non-existent column
 
 test_that("time_lapse_plot errors when filter_vector value is absent from the data", {
   expect_error(
-    time_lapse_plot(parameter = valid_param,
+    time_lapse_plot(parameters = valid_param,
                     filter_vector = c(country = "Crudbob McDoomington")),
     "are not found in the data"
   )

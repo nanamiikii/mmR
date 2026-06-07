@@ -6,8 +6,8 @@
 #'
 #' @param parameters A character vector of column names to plot (Default: \code{"measles_total"}).
 #'   All series are overlaid on the same graph.
-#' @param start_year A numerical specifying the starting year for the time series (Default: 2012)
-#' @param end_year A numerical specifying the ending year for the time series (Default: 2024)
+#' @param start_year A numerical or numeric string specifying the starting year for the time series (Default: 2012)
+#' @param end_year A numerical or numeric string specifying the ending year for the time series (Default: 2024)
 #' @param title_ A character string specifying the title of the plot (Default: \code{glue("{paste(parameters, collapse = ', ')} from {start_year} to {end_year}")}
 #' @param filter_vector An optional named character vector to filter the data by specific categories
 #'   or groups (Default: \code{NULL}).
@@ -47,8 +47,6 @@
 #' @importFrom rlang .data
 #'
 #' @export
-
-
 
 ########## plotting function ##########
 

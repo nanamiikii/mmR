@@ -2,8 +2,8 @@ Package: mmR
 Title: mmR: Measels and Models using R
 Version: 0.0.0.9000
 Authors@R: 
-    person("Alvaro", "Ramos", , "aramos89@calpoly.edu", role = c("aut", "cre")),
-    person("Emi", "Degembe", , "edegembe@calpoly.edu", role = c("aut", "cre")),
+    person("Alvaro", "Ramos", , "aramos89@calpoly.edu", role = c("aut", "cre"))
+    person("Emi", "Degembe", , "edegembe@calpoly.edu", role = c("aut", "cre"))
     person("Libby", "Brill", , "lbrill@calpoly.edu", role = c("aut", "cre"))
 Description: This package provides modularized functions for our Measles
     investigation project.
