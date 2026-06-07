@@ -36,9 +36,11 @@ test_that("summary statistics for a variable (generate_summary_stats)", {
 
 test_that("summary statistics by mode (summarize_stats_by)", {
 
-  dat <- load_data()
+  #dat <- load_data()
 
-  tab <- summarize_stats_by(dat)
+  tab <- summarize_stats_by(
+    #dat
+    )
 
   # Check object type
   expect_s3_class(tab, "tbl_df")
@@ -108,5 +110,7 @@ test_that("summary statistics for a specified region (summarize_stats_by_region)
   expect_equal(tab$`_data`$stdev[1], 2,101.07)
   expect_equal(tab$`_data`$iqr[1], 1,579.82)
   expect_equal(tab$`_data`$n[1], 4)
+
+  expect_error(mmR::summarize_stats_by_region(summ_param = "region"))
 
 })

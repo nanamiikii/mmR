@@ -53,7 +53,11 @@ generate_summary_stats <- function(x) {
 #' # Generate sample statistics for number of measles by region
 #' summarize_stats_by(load_data(), measles_total, region)
 
-summarize_stats_by <- function(df, col = measles_total, mode = region) {
+summarize_stats_by <- function(df = load_data(), col = measles_total, mode = region) {
+
+  #if (is.character(mode)){
+   #stop("Please do not use quotes for specifying the mode")
+  #}
 
   #if (!(mode %in% c("region", "country", "iso3", "year"))){
    # stop("Please select one of the available modes (region, country, iso3, year)")
@@ -176,6 +180,15 @@ validate_region <- function(region_name) {
 #' @param variable_name Variable to checked
 
 validate_variable <- function(variable_name) {
+
+  if (variable_name %in% c("region", "country", "iso3", "year")) {
+    stop(
+
+      "Please select one of the variables using load_data() |> names() that is not {variable_name}." |>
+        str_glue()
+
+    )
+  }
 
   var_options <- load_data() |> names()
 

@@ -34,7 +34,7 @@ load_data()
 ```{r}
 #| eval: false
 summarize_stats_by(
-  df,
+  df = load_data(),
   col = measles_total,
   mode = region
   )
