@@ -47,7 +47,7 @@ summarize_stats_by(
 ```{r}
 #| eval: false
 summarize_stats_by_region(
-  region = "Africa",
+  r = "Africa",
   summ_param = "GDP_per_capita",
   n = 5
   )
@@ -61,13 +61,13 @@ summarize_stats_by_region(
 
 ```{r}
 #| eval: false 
-time_lapse_plot <- function(parameters = "measles_total",
-                            start_year = 2012,
-                            end_year = 2024,
-                            title_ = glue("{paste(parameters, collapse = ', ')} from {start_year} to {end_year}"),
-                            filter_vector = NULL,
-                            use_mean = FALSE,
-                            palette = c("#001E4D", "#F4A324"))
+time_lapse_plot(parameters = "measles_total",
+                start_year = 2012,
+                end_year = 2024,
+                title_ = glue("{paste(parameters, collapse = ', ')} from {start_year} to {end_year}"),
+                filter_vector = NULL,
+                use_mean = FALSE,
+                palette = c("#001E4D", "#F4A324"))
 ```
 
 > Provides an animated time series of a select parameter with an optional filter vector and established start/end times. Defaults are set to show the median total measles cases per 1,000,000 from 2012 to 2024, with an optional toggle to switch this to a mean instead. This is similar to dashboard time series under Mongolia panel. 
@@ -76,7 +76,7 @@ time_lapse_plot <- function(parameters = "measles_total",
 
 ```{r}
 #| eval: false 
-plot_leaflet(parameter = "MCV2", low = "#FFFFFF", high = "#E85D4E", normalize = FALSE)
+plot_leaflet(var = "mcv2", low = "#FFFFFF", high = "#E85D4E")
 ```
 
 > Generates a leaflet visual showing a world map of values of a specified variable. Similar to the main page leaflet plot used for the dashboard, the function is meant to modularize the leaflet inputs and allow for more customization, as well as a min-max normalization parameter for any values that may not be on a 0 to 1 scale. Default values are set to show a map of MCV2 coverage with low values being represented in white and high values being represented in red-orange with no normalization.
