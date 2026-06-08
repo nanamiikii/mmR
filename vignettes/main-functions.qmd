@@ -34,7 +34,7 @@ load_data()
 ```{r}
 #| eval: false
 summarize_stats_by(
-  df,
+  df = load_data(),
   col = measles_total,
   mode = region
   )
@@ -61,18 +61,16 @@ summarize_stats_by_region(
 
 ```{r}
 #| eval: false 
-time_lapse_plot(
-  parameter = "measles_total",
-  start_year = "2012",
-  end_year = "2024",
-  title_ = glue("{parameter} from {start_year} to {end_year}"),
-  filepath = NULL,
-  filter_vector = NULL,
-  palette = c("#001E4D", "#F4A324")
-  )
+time_lapse_plot <- function(parameters = "measles_total",
+                            start_year = 2012,
+                            end_year = 2024,
+                            title_ = glue("{paste(parameters, collapse = ', ')} from {start_year} to {end_year}"),
+                            filter_vector = NULL,
+                            use_mean = FALSE,
+                            palette = c("#001E4D", "#F4A324"))
 ```
 
-> Provides an animated time series of a select parameter with an optional filter vector and established start/end times. Defaults are set to show the change in measles cases per 1,000,000 from 2012 to 2024, This is similar to dashboard time series under Mongolia panel. 
+> Provides an animated time series of a select parameter with an optional filter vector and established start/end times. Defaults are set to show the median total measles cases per 1,000,000 from 2012 to 2024, with an optional toggle to switch this to a mean instead. This is similar to dashboard time series under Mongolia panel. 
 
 ### Leaflet visual
 

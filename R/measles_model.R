@@ -60,7 +60,7 @@ model_tab <- function(variables = c("GDP_per_capita", "mcv2", "region")){
   m <- model_form(variables)
 
   ma <- car::Anova(m)
-  v <- ma$`Pr(>Chisq)`[stringr::str_which(variables, "region")] |> round(3)
+  v <- ma$`Pr(>Chisq)`[stringr::str_which(ma |> row.names(), "region")] |> round(3)
 
   s <- summary(m)$tTable |>
     as_tibble(rownames = "var")
