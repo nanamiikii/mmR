@@ -76,7 +76,7 @@ time_lapse_plot(parameters = "measles_total",
 
 ```{r}
 #| eval: false 
-plot_leaflet(var = "mcv2", low = "#FFFFFF", high = "#E85D4E")
+plot_leaflet(var = "mcv2", low = "#FFFFFF", high = "#E85D4E", format = TRUE)
 ```
 
 > Generates a leaflet visual showing a world map of values of a specified variable. Similar to the main page leaflet plot used for the dashboard, the function is meant to modularize the leaflet inputs and allow for more customization, as well as a min-max normalization parameter for any values that may not be on a 0 to 1 scale. Default values are set to show a map of MCV2 coverage with low values being represented in white and high values being represented in red-orange with no normalization.
