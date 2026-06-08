@@ -64,6 +64,8 @@ test_that("summary statistics by mode (summarize_stats_by)", {
   expect_equal(tab$iqr[1] |> round(), 733)
   expect_equal(tab$n[1] |> round(), 601)
 
+  expect_error(summarize_stats_by(mode = "z"))
+
 })
 
 test_that("summary statistics for a specified region (summarize_stats_by_region)", {
