@@ -104,12 +104,11 @@ model_tab(variables = c("GDP_per_capita", "mcv2", "region"))
 > Generates a `gt` table that formats coefficients for a model created using the function `model_form`. See documentation for `model_form` for detailed information about the model formed.
 
 
+## Data wrangling function (internal)
 
+```{r}
+#| eval: false
+mmR:::formatted_data("mcv2", TRUE)
+```
 
-
-
-
-
-
-
-
+> Formats the data file to be the correct stucture for the leaflet plot. Not exported, but can be accessed by adding `mmR:::` in front of the function name
