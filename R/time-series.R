@@ -45,6 +45,7 @@
 #' @import glue
 #' @importFrom gganimate transition_reveal
 #' @importFrom rlang .data
+#' @importFrom furrr future_walk
 #'
 #' @export
 
@@ -167,11 +168,12 @@ filter_data <- function(data, filter_vector) {
     ))
   }
 
-  # Check that each value exists in its respective column
-  for (col in unique(names(filter_vector))) {
-    vals        <- unname(filter_vector[names(filter_vector) == col])
-    valid_vals  <- unique(as.character(data[[col]]))
+  # Check that each value exists in its respective column -- removed for loop
+  future_walk(unique(names(filter_vector)), function(col) {
+    vals         <- unname(filter_vector[names(filter_vector) == col])
+    valid_vals   <- unique(as.character(data[[col]]))
     invalid_vals <- vals[!vals %in% valid_vals]
+  
     if (length(invalid_vals) > 0) {
       stop(glue(
         "The following value(s) for `{col}` are not found in the data: ",
@@ -179,9 +181,10 @@ filter_data <- function(data, filter_vector) {
         "Use load_data() to view valid entries."
       ))
     }
-  }
+  })
 
   # Filter sequentially: AND across different columns, OR within the same column
+  # honestly, can't quite figure out how to use map here...
   for (col in unique(names(filter_vector))) {
     vals <- unname(filter_vector[names(filter_vector) == col])
     data <- data |> filter(.data[[col]] %in% vals)
