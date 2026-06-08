@@ -46,6 +46,7 @@ generate_summary_stats <- function(x) {
 #' @returns A tibble of summary statistics
 #'
 #' @import dplyr
+#' @importFrom rlang as_name ensym
 #'
 #' @export
 #'
