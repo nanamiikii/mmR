@@ -46,6 +46,7 @@ generate_summary_stats <- function(x) {
 #' @returns A tibble of summary statistics
 #'
 #' @import dplyr
+#' @importFrom rlang as_name ensym
 #'
 #' @export
 #'
@@ -55,13 +56,9 @@ generate_summary_stats <- function(x) {
 
 summarize_stats_by <- function(df = load_data(), col = measles_total, mode = region) {
 
-  #if (is.character(mode)){
-   #stop("Please do not use quotes for specifying the mode")
-  #}
-
-  #if (!(mode %in% c("region", "country", "iso3", "year"))){
-   # stop("Please select one of the available modes (region, country, iso3, year)")
-  #}
+  if (!(as_name(ensym(mode)) %in% c("region", "country", "iso3", "year"))){
+  stop("Please select one of the available modes (region, country, iso3, year)")
+  }
 
   df |>
     dplyr::select({{mode}}, {{col}}) |>
