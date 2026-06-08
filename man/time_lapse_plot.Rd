@@ -18,9 +18,9 @@ time_lapse_plot(
 \item{parameters}{A character vector of column names to plot (Default: \code{"measles_total"}).
 All series are overlaid on the same graph.}
 
-\item{start_year}{A numerical specifying the starting year for the time series (Default: 2012)}
+\item{start_year}{A numerical or numeric string specifying the starting year for the time series (Default: 2012)}
 
-\item{end_year}{A numerical specifying the ending year for the time series (Default: 2024)}
+\item{end_year}{A numerical or numeric string specifying the ending year for the time series (Default: 2024)}
 
 \item{title_}{A character string specifying the title of the plot (Default: \code{glue("{paste(parameters, collapse = ', ')} from {start_year} to {end_year}")}}
 
